@@ -37,7 +37,10 @@
     margin: 0%;
 }
 
-.appBar{
+.appButtons{
+    color: purple;
+    background-color: purple;
+    margin: 1%;
 }
 
 

@@ -3,6 +3,7 @@ import logo from './icon2.png';
 import { AppBar, Toolbar, Typography } from '@material-ui/core/';
 import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
+import '../CSSFiles/App.css';
 
 export const Header: React.StatelessComponent<{}> = () => {
   return (
@@ -14,14 +15,6 @@ export const Header: React.StatelessComponent<{}> = () => {
         </Typography>
 
         <Typography color="inherit">
-
-          <Link to="/">
-            <Button
-              variant="flat"
-              color="primary">
-              Main
-            </Button>
-          </Link>
 
           <Link to="Feed">
             <Button
@@ -35,7 +28,15 @@ export const Header: React.StatelessComponent<{}> = () => {
             <Button
               variant="flat"
               color="primary">
-              Personal
+              Profile
+            </Button>
+          </Link>
+
+          <Link to="/">
+            <Button
+              variant="flat"
+              color="primary">
+              Logout
             </Button>
           </Link>
 

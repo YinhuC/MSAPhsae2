@@ -2,7 +2,6 @@ import * as React from 'react';
 import { BrowserRouter, Redirect, Route } from 'react-router-dom';
 import App from './App'
 import Feed from './Components/Feed';
-import { Header } from './Components/Header';
 import Personal from './Components/Personal';
 
 export const AppRouter: React.StatelessComponent<{}> = () => {
@@ -10,7 +9,6 @@ export const AppRouter: React.StatelessComponent<{}> = () => {
 
         <BrowserRouter>
             <div>
-                <Header />
                 <main>
                     <Route exact={true} path="/" component={App} />
                     <Route path="/Feed" component={Feed} />

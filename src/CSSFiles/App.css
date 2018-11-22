@@ -37,10 +37,35 @@
     margin: 0%;
 }
 
-.appButtons{
+.userBtn{
+    text-align: center;
     color: purple;
-    background-color: purple;
-    margin: 1%;
+    padding: 0%;
+    margin: 0%;
+    margin-left: 2%;
+    margin-top: 30px;
 }
 
+.enter{
+    font-size: 30px;
+}
 
+.spare{
+    font-size: 1px;
+    color: rgb(39, 71, 81);
+}
+
+.field{
+    text-align: center;
+    margin-left: 2%;
+    margin-top: 30px;
+}
+
+.fieldText{
+    text-align: center;
+    margin-left: 2%;
+    margin-top: 550px;
+    font-size: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgb(255, 255, 255);
+}

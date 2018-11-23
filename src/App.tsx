@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Background from './Components/MainPage.png';
 import Input from '@material-ui/core/Input';
+import Facebook from './Components/FBlogin';
 
 const sectionStyle = {
   backgroundImage: "url(" + Background + ")",
@@ -42,8 +43,8 @@ class App extends React.Component<{}, IState> {
       <section style={sectionStyle}>
         <div className="spare">i</div>
 
-        <p className="fieldText">Enter a username to begin</p>
-
+        <p className="fieldText">Enter a username to begin or</p>
+        <div className="fb"><Facebook /></div>
         <div className="field">
           <Input
             placeholder="Username"

@@ -64,7 +64,7 @@
 .fieldText{
     text-align: center;
     margin-left: 2%;
-    margin-top: 550px;
+    margin-top: 450px;
     font-size: 30px;
     font-family: Arial, Helvetica, sans-serif;
     color: rgb(255, 255, 255);
@@ -91,6 +91,10 @@
 
 .fbBtn{
     margin-left: 30px;
+}
+
+.fb{
+    text-align: center;
 }
 
 

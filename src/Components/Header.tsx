@@ -7,6 +7,9 @@ import '../CSSFiles/App.css';
 import { FacebookShareButton, FacebookIcon } from 'react-share';
 
 export const Header: React.StatelessComponent<{}> = () => {
+
+  const urlll = 'https://www.facebook.com/sharer/sharer.php?u=https%3A//chitchatmsa.azurewebsites.net/';
+
   return (
 
     <AppBar position="static" color="default">
@@ -32,7 +35,7 @@ export const Header: React.StatelessComponent<{}> = () => {
         </Link>
         <div className="fbBtn">
           <FacebookShareButton
-            url={"..."}
+            url={urlll}
             quote={"Join the discussion on ChitChat"}>
             <FacebookIcon size={28} round={true} />
           </FacebookShareButton>

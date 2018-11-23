@@ -108,41 +108,65 @@ export default class Feed extends React.Component<{}, IState> {
             return;
         }
 
-        for (const post of this.state.posts) {
+        for (let i = 0; i < postList.length; i++) {
+
+            const post = postList[i];
+            console.log(post)
+
             htmlList.push(
                 <Grid className="Grid" xs={8}>
                     <Paper className="Paper">
                         <p className="Title">{post.title}</p>
                         {post.msg}<br />
                         <p className="Vote">
-                            <IconButton aria-label="UpVote" onClick={this.incUpVote}>
+                            <IconButton aria-label="UpVote" onClick={this.incUpVote.bind(this, i)}>
                                 <UpIcon />
                             </IconButton>
-                            UpVotes: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{this.state.upvotes}<br />
+                            UpVotes: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{post.upvotes}<br />
                         </p>
                         <p className="Vote">
-                            <IconButton aria-label="DownVote" onClick={this.incDownVote} >
+                            <IconButton aria-label="DownVote" onClick={this.incDownVote.bind(this, i)} >
                                 <DownIcon />
                             </IconButton>
-                            DownVotes:&nbsp;&nbsp;{this.state.downvotes}
+                            DownVotes:&nbsp;&nbsp;{post.downvotes}
                         </p>
                     </Paper>
                 </Grid>
             );
-            post.upvotes = this.state.upvotes;
-            post.downvotes = this.state.downvotes;
             Feed.id = post.id;
         }
 
         return htmlList;
     }
 
-    private incUpVote = () => {
+    private incUpVote = (i: any) => {
         this.setState({ upvotes: this.state.upvotes + 1 });
-    }
-    private incDownVote = () => {
-        this.setState({ downvotes: this.state.downvotes + 1 });
+        this.state.posts[i].upvotes++;
+        this.updatePost(this.state.posts[i]);
     }
 
+    private incDownVote = (i: any) => {
+        this.setState({ downvotes: this.state.downvotes + 1 });
+        this.state.posts[i].downvotes++;
+        this.updatePost(this.state.posts[i]);
+    }
+
+    // PUT update the post
+    private updatePost(post: any) {
+
+        const url = "https://chitchatmsa.azurewebsites.net/api/post/" + post.id
+
+        fetch(url, {
+            body: JSON.stringify(post),
+            headers: { 'cache-control': 'no-cache', 'Content-Type': 'application/json' },
+            method: 'PUT'
+        })
+            .then((response: any) => {
+                if (!response.ok) {
+                    // Error State
+                    alert(response.statusText + " " + url)
+                }
+            })
+    }
 
 }

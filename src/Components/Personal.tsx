@@ -139,7 +139,7 @@ class Personal extends React.Component<{}, IState> {
 
     // GET the posts on the server
     private fetchPosts() {
-        const url = "https://chitchatmsa.azurewebsites.net/api/post/userid?=" + App.username
+        const url = "https://chitchatapi.azurewebsites.net/api/post/userid?=" + App.username
         if (App.username === "") {
             return
         }
@@ -232,7 +232,7 @@ class Personal extends React.Component<{}, IState> {
     // POST the post to the server
     private uploadPost(post: any) {
 
-        const url = "https://chitchatmsa.azurewebsites.net/api/post"
+        const url = "https://chitchatapi.azurewebsites.net/api/post"
 
         if (post.id === null || post.userid === null || post.upvotes === null
             || post.downvotes === null || post.title === null || post.msg === null || post.time === null) {
@@ -256,7 +256,7 @@ class Personal extends React.Component<{}, IState> {
 
     // DELETE selected post
     private deleteMeme(post: any) {
-        const url = "https://chitchatmsa.azurewebsites.net/api/post/" + post.id;
+        const url = "https://chitchatapi.azurewebsites.net/api/post/" + post.id;
 
         fetch(url, {
             method: 'DELETE'
@@ -284,7 +284,7 @@ class Personal extends React.Component<{}, IState> {
         post.title = titleInput.value
         post.msg = msgInput.value
 
-        const url = "https://chitchatmsa.azurewebsites.net/api/post/" + post.id
+        const url = "https://chitchatapi.azurewebsites.net/api/post/" + post.id
 
         fetch(url, {
             body: JSON.stringify(post),

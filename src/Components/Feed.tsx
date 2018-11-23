@@ -79,7 +79,7 @@ export default class Feed extends React.Component<{}, IState> {
 
     // GET the posts on the server
     private fetchPosts(search: string) {
-        let url = "https://chitchatmsa.azurewebsites.net/api/post"
+        let url = "https://chitchatapi.azurewebsites.net/api/post"
         if (search !== "") {
             url += "/msg?=" + search
         }
@@ -154,7 +154,7 @@ export default class Feed extends React.Component<{}, IState> {
     // PUT update the post
     private updatePost(post: any) {
 
-        const url = "https://chitchatmsa.azurewebsites.net/api/post/" + post.id
+        const url = "https://chitchatapi.azurewebsites.net/api/post/" + post.id
 
         fetch(url, {
             body: JSON.stringify(post),

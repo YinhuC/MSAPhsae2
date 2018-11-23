@@ -35,6 +35,8 @@ export default class Feed extends React.Component<{}, IState> {
         }
         this.fetchPosts("")
         this.fetchPosts = this.fetchPosts.bind(this)
+        this.uploadAudio = this.uploadAudio.bind(this)
+        this.searchTagByVoice = this.searchTagByVoice.bind(this)
     }
 
     public handleChange = (event: any) => {

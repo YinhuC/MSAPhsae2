@@ -7,6 +7,9 @@ import DownIcon from '@material-ui/icons/KeyboardArrowDown';
 import { Header } from './Header';
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
+import Chatbot from './Chatbot';
+import '../CSSFiles/App.css';
+
 
 interface IState {
     input: string,
@@ -46,8 +49,10 @@ export default class Feed extends React.Component<{}, IState> {
 
     public render() {
         return (
-            <div>
+            <div className="main">
                 <Header />
+
+                <Chatbot />
 
                 <div className="posting">
                     <Input
@@ -66,7 +71,6 @@ export default class Feed extends React.Component<{}, IState> {
                         <div className="enter">Search</div>
                     </Button>
                 </div>
-
 
                 {this.createPosts()}
             </div>

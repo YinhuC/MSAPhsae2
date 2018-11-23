@@ -4,6 +4,7 @@ import { AppBar, Toolbar, Typography } from '@material-ui/core/';
 import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import '../CSSFiles/App.css';
+import { FacebookShareButton, FacebookIcon } from 'react-share';
 
 export const Header: React.StatelessComponent<{}> = () => {
   return (
@@ -14,34 +15,35 @@ export const Header: React.StatelessComponent<{}> = () => {
           <img src={logo} className="icon" />
         </Typography>
 
-        <Typography color="inherit">
-
-          <Link to="Feed">
-            <Button
-              variant="text"
-              color="primary">
-              Feed
+        <Link to="Feed" className="headerbtn">
+          <Button
+            variant="text"
+            color="inherit">
+            Feed
             </Button>
-          </Link>
+        </Link>
 
-          <Link to="Personal">
-            <Button
-              variant="text"
-              color="primary">
-              Profile
+        <Link to="Personal">
+          <Button
+            variant="text"
+            color="inherit">
+            Profile
             </Button>
-          </Link>
-
-          <Link to="/">
-            <Button
-              variant="text"
-              color="primary">
-              Logout
+        </Link>
+        <div className="fbBtn">
+          <FacebookShareButton
+            url={"..."}
+            quote={"Join the discussion on ChitChat"}>
+            <FacebookIcon size={28} round={true} />
+          </FacebookShareButton>
+        </div>
+        <Link to="/" className="logout">
+          <Button
+            variant="text"
+            color="inherit">
+            Logout
             </Button>
-          </Link>
-
-
-        </Typography>
+        </Link>
 
       </Toolbar>
     </AppBar>

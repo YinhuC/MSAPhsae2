@@ -74,4 +74,9 @@
 .posting{
     text-align: center;
     margin-top: 30px;
-}
+}      
+
+.txtbox{
+    padding:10px;
+    margin: 10px
+} 

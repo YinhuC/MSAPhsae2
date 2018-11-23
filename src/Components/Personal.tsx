@@ -8,19 +8,24 @@ import IconButton from '@material-ui/core/IconButton';
 import UpIcon from '@material-ui/icons/KeyboardArrowUp';
 import DownIcon from '@material-ui/icons/KeyboardArrowDown';
 import Delete from '@material-ui/icons/Delete';
+import Edit from '@material-ui/icons/Edit';
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
+import Modal from 'react-responsive-modal';
+import '../CSSFiles/App.css';
 
 
 interface IState {
+    edit: any,
     input: string,
     input2: string,
     currentPost: any,
     posts: any[],
     upvotes: number,
     downvotes: number,
-    newpost: any
+    newpost: any,
+    open: boolean
 }
 
 class Personal extends React.Component<{}, IState> {
@@ -33,15 +38,18 @@ class Personal extends React.Component<{}, IState> {
         this.state = {
             currentPost: { "id": 0, "userid": "0", "upvotes": 0, "downvotes": 0, "title": "There are currently no posts", "msg": "Create your own post to start a thread", "time": "0" },
             downvotes: 0,
+            edit: { "id": "", "userid": "0", "upvotes": 0, "downvotes": 0, "title": "", "msg": "", "time": "To Be Implemented" },
             input: "",
             input2: "",
             newpost: { "id": "", "userid": "0", "upvotes": 0, "downvotes": 0, "title": "", "msg": "", "time": "To Be Implemented" },
+            open: false,
             posts: [],
             upvotes: 0,
         }
-        this.fetchPosts("")
+        this.fetchPosts()
         this.fetchPosts = this.fetchPosts.bind(this)
     }
+
 
     public handleChange = (event: any) => {
         this.setState({
@@ -70,8 +78,9 @@ class Personal extends React.Component<{}, IState> {
         })
     }
 
-
     public render() {
+
+        const { open } = this.state;
 
         return (
             <div>
@@ -108,13 +117,32 @@ class Personal extends React.Component<{}, IState> {
                     </div>
                 </Link>
                 {this.createPosts()}
+
+                <Modal open={open} onClose={this.onCloseModal}>
+                    <form>
+                        <div className="txtbox">
+                            <label>Title of Post:</label>
+                            <input type="text" id="posttitle" placeholder="Enter New Title" />
+                        </div>
+                        <div className="txtbox">
+                            <label>Post Details:</label>
+                            <input type="text" id="postmsg" placeholder="Enter New Post" />
+                        </div>
+                        <Link to="/Feed">
+                            <button type="button" className="btn" onClick={this.updatePost.bind(this, this.state.edit)}>Save</button>
+                        </Link>
+                    </form>
+                </Modal>
             </div>
         );
     }
 
     // GET the posts on the server
-    private fetchPosts(search: string) {
+    private fetchPosts() {
         const url = "https://chitchatmsa.azurewebsites.net/api/post/userid?=" + App.username
+        if (App.username === "") {
+            return
+        }
         fetch(url, {
             method: 'GET'
         })
@@ -126,7 +154,7 @@ class Personal extends React.Component<{}, IState> {
                 }
                 this.setState({
                     currentPost,
-                    posts: json
+                    posts: json,
                 })
             });
     }
@@ -146,10 +174,17 @@ class Personal extends React.Component<{}, IState> {
                 <Grid className="Grid" xs={8}>
                     <Paper className="Paper">
                         <p className="Title">
-                        {post.title}
-                        <IconButton aria-label="DownVote" onClick={this.incDownVote} >
-                            <Delete />
-                        </IconButton>
+                            {post.title}
+                            <IconButton
+                                aria-label="Edit" onClick={this.onOpenModal.bind(this, post)} >
+                                <Edit style={{ fontSize: '30px' }} />
+                            </IconButton>
+                            <Link to="/Feed">
+                                <IconButton
+                                    aria-label="Delete" onClick={this.deleteMeme.bind(this, post)} >
+                                    <Delete style={{ fontSize: '30px' }} />
+                                </IconButton>
+                            </Link>
                         </p>
                         {post.msg}<br />
                         <p className="Vote">
@@ -170,10 +205,21 @@ class Personal extends React.Component<{}, IState> {
             post.upvotes = this.state.upvotes;
             post.downvotes = this.state.downvotes;
         }
-
         return htmlList;
     }
 
+    // Modal Open
+    private onOpenModal = (post: any) => {
+        this.setState({
+            edit: post,
+            open: true
+        });
+    };
+
+    // Modal Close
+    private onCloseModal = () => {
+        this.setState({ open: false });
+    };
 
     private incUpVote = () => {
         this.setState({ upvotes: this.state.upvotes + 1 });
@@ -202,6 +248,53 @@ class Personal extends React.Component<{}, IState> {
                 if (!response.ok) {
                     // Error State
                     alert(response.statusText)
+                } else {
+                    location.reload()
+                }
+            })
+    }
+
+    // DELETE selected post
+    private deleteMeme(post: any) {
+        const url = "https://chitchatmsa.azurewebsites.net/api/post/" + post.id;
+
+        fetch(url, {
+            method: 'DELETE'
+        })
+            .then((response: any) => {
+                if (!response.ok) {
+                    // Error Response
+                    alert(response.statusText)
+                } else {
+                    location.reload()
+                }
+            })
+    }
+
+    // PUT update the post
+    private updatePost(post: any) {
+
+        const titleInput = document.getElementById("posttitle") as HTMLInputElement
+        const msgInput = document.getElementById("postmsg") as HTMLInputElement
+
+        if (titleInput === null || msgInput === null) {
+            return;
+        }
+
+        post.title = titleInput.value
+        post.msg = msgInput.value
+
+        const url = "https://chitchatmsa.azurewebsites.net/api/post/" + post.id
+
+        fetch(url, {
+            body: JSON.stringify(post),
+            headers: { 'cache-control': 'no-cache', 'Content-Type': 'application/json' },
+            method: 'PUT'
+        })
+            .then((response: any) => {
+                if (!response.ok) {
+                    // Error State
+                    alert(response.statusText + " " + url)
                 } else {
                     location.reload()
                 }

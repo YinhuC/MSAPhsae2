@@ -4,7 +4,6 @@ import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import UpIcon from '@material-ui/icons/KeyboardArrowUp';
 import DownIcon from '@material-ui/icons/KeyboardArrowDown';
-import App from '../App';
 import { Header } from './Header';
 
 interface IState {
@@ -15,6 +14,8 @@ interface IState {
 }
 
 export default class Feed extends React.Component<{}, IState> {
+
+    public static id: string;
 
     constructor(props: any) {
         super(props)
@@ -31,8 +32,6 @@ export default class Feed extends React.Component<{}, IState> {
 
 
     public render() {
-        console.log(App.username)
-
         return (
             <div>
                 <Header />
@@ -107,6 +106,7 @@ export default class Feed extends React.Component<{}, IState> {
             );
             post.upvotes = this.state.upvotes;
             post.downvotes = this.state.downvotes;
+            Feed.id = post.id;
         }
 
         return htmlList;

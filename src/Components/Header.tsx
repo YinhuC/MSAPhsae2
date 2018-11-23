@@ -18,7 +18,7 @@ export const Header: React.StatelessComponent<{}> = () => {
 
           <Link to="Feed">
             <Button
-              variant="flat"
+              variant="text"
               color="primary">
               Feed
             </Button>
@@ -26,7 +26,7 @@ export const Header: React.StatelessComponent<{}> = () => {
 
           <Link to="Personal">
             <Button
-              variant="flat"
+              variant="text"
               color="primary">
               Profile
             </Button>
@@ -34,7 +34,7 @@ export const Header: React.StatelessComponent<{}> = () => {
 
           <Link to="/">
             <Button
-              variant="flat"
+              variant="text"
               color="primary">
               Logout
             </Button>

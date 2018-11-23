@@ -140,6 +140,9 @@ export default class Feed extends React.Component<{}, IState> {
             console.log(res)
             const textBox = document.getElementById("search-tag-textbox") as HTMLInputElement
             textBox.value = (res.DisplayText as string).slice(0, -1)
+            this.setState({
+                input: textBox.value
+            });
         }).catch((error) => {
             console.log("Error", error)
         });
